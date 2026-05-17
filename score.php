@@ -22,6 +22,54 @@ function calcTotal() {
 	var sum = dev1 + acc1 + dev2 + acc2 + dev3 + acc3 + dev4 + acc4;
 	document.scoreform.total.value = sum;
 }
+function check1() {
+	if (document.scoreform.dev1.value != "") {
+		document.scoreform.acc1.disabled = true;
+	} else {
+		document.scoreform.acc1.disabled = false;
+	}
+	if (document.scoreform.acc1.value != "") {
+		document.scoreform.dev1.disabled = true;
+	} else {
+		document.scoreform.dev1.disabled = false;
+	}
+}
+function check2() {
+	if (document.scoreform.dev2.value != "") {
+		document.scoreform.acc2.disabled = true;
+	} else {
+		document.scoreform.acc2.disabled = false;
+	}
+	if (document.scoreform.acc2.value != "") {
+		document.scoreform.dev2.disabled = true;
+	} else {
+		document.scoreform.dev2.disabled = false;
+	}
+}
+function check3() {
+	if (document.scoreform.dev3.value != "") {
+		document.scoreform.acc3.disabled = true;
+	} else {
+		document.scoreform.acc3.disabled = false;
+	}
+	if (document.scoreform.acc3.value != "") {
+		document.scoreform.dev3.disabled = true;
+	} else {
+		document.scoreform.dev3.disabled = false;
+	}
+}
+function check4() {
+	if (document.scoreform.dev4.value != "") {
+		document.scoreform.acc4.disabled = true;
+	} else {
+		document.scoreform.acc4.disabled = false;
+	}
+	if (document.scoreform.acc4.value != "") {
+		document.scoreform.dev4.disabled = true;
+	} else {
+		document.scoreform.dev4.disabled = false;
+	}
+}
 </script>
 </head>
 <body>
@@ -33,10 +81,46 @@ if(isset($_POST['members'])) {
 	$members = $_POST['members'];
 	$groupnum = $_POST['groupnum'];
 	$title = $_POST['title'];
-	$dev1 = $_POST['dev1']; $acc1 = $_POST['acc1'];
-	$dev2 = $_POST['dev2']; $acc2 = $_POST['acc2'];
-	$dev3 = $_POST['dev3']; $acc3 = $_POST['acc3'];
-	$dev4 = $_POST['dev4']; $acc4 = $_POST['acc4'];
+	if (isset($_POST['dev1']) && $_POST['dev1'] != "") {
+		$dev1 = $_POST['dev1'];
+	} else {
+		$dev1 = 0;
+	}
+	if (isset($_POST['acc1']) && $_POST['acc1'] != "") {
+		$acc1 = $_POST['acc1'];
+	} else {
+		$acc1 = 0;
+	}
+	if (isset($_POST['dev2']) && $_POST['dev2'] != "") {
+		$dev2 = $_POST['dev2'];
+	} else {
+		$dev2 = 0;
+	}
+	if (isset($_POST['acc2']) && $_POST['acc2'] != "") {
+		$acc2 = $_POST['acc2'];
+	} else {
+		$acc2 = 0;
+	}
+	if (isset($_POST['dev3']) && $_POST['dev3'] != "") {
+		$dev3 = $_POST['dev3'];
+	} else {
+		$dev3 = 0;
+	}
+	if (isset($_POST['acc3']) && $_POST['acc3'] != "") {
+		$acc3 = $_POST['acc3'];
+	} else {
+		$acc3 = 0;
+	}
+	if (isset($_POST['dev4']) && $_POST['dev4'] != "") {
+		$dev4 = $_POST['dev4'];
+	} else {
+		$dev4 = 0;
+	}
+	if (isset($_POST['acc4']) && $_POST['acc4'] != "") {
+		$acc4 = $_POST['acc4'];
+	} else {
+		$acc4 = 0;
+	}
 	$comments = $_POST['comments'];
 	$total = $dev1 + $acc1 + $dev2 + $acc2 + $dev3 + $acc3 + $dev4 + $acc4;
 	$servername = "sql5.freesqldatabase.com";
@@ -44,7 +128,9 @@ if(isset($_POST['members'])) {
 	$password = "cwNi1Ae3GI";
 	$dbname = "sql5827094";
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
-	if (!$conn) { die("Connection failed: " . mysqli_connect_error()); }
+	if (!$conn) {
+		die("Connection failed: " . mysqli_connect_error());
+	}
 	$sql = "INSERT INTO scores (judge, members, groupnum, title, dev1, acc1, dev2, acc2, dev3, acc3, dev4, acc4, total, comments) VALUES ('$judge', '$members', '$groupnum', '$title', $dev1, $acc1, $dev2, $acc2, $dev3, $acc3, $dev4, $acc4, $total, '$comments')";
 	if (mysqli_query($conn, $sql)) {
 		echo "<h2>Scores Submitted Successfully !!!</h2>";
@@ -78,10 +164,10 @@ if(isset($_POST['members'])) {
 	echo "<br>";
 	echo "<table style='width:600px'>";
 	echo "<tr><th>Criteria</th><th>Developing (0-10)</th><th>Accomplished (11-15)</th></tr>";
-	echo "<tr><td>Articulate requirements</td><td><center><input type='text' name='dev1' size='3' value='0'></center></td><td><center><input type='text' name='acc1' size='3' value='0'></center></td></tr>";
-	echo "<tr><td>Choose appropriate tools and methods for each task</td><td><center><input type='text' name='dev2' size='3' value='0'></center></td><td><center><input type='text' name='acc2' size='3' value='0'></center></td></tr>";
-	echo "<tr><td>Give clear and coherent oral presentation</td><td><center><input type='text' name='dev3' size='3' value='0'></center></td><td><center><input type='text' name='acc3' size='3' value='0'></center></td></tr>";
-	echo "<tr><td>Functioned well as a team</td><td><center><input type='text' name='dev4' size='3' value='0'></center></td><td><center><input type='text' name='acc4' size='3' value='0'></center></td></tr>";
+	echo "<tr><td>Articulate requirements</td><td><center><input type='text' name='dev1' size='3' onkeydown='check1()'></center></td><td><center><input type='text' name='acc1' size='3' onkeydown='check1()'></center></td></tr>";
+	echo "<tr><td>Choose appropriate tools and methods for each task</td><td><center><input type='text' name='dev2' size='3' onkeydown='check2()'></center></td><td><center><input type='text' name='acc2' size='3' onkeydown='check2()'></center></td></tr>";
+	echo "<tr><td>Give clear and coherent oral presentation</td><td><center><input type='text' name='dev3' size='3' onkeydown='check3()'></center></td><td><center><input type='text' name='acc3' size='3' onkeydown='check3()'></center></td></tr>";
+	echo "<tr><td>Functioned well as a team</td><td><center><input type='text' name='dev4' size='3' onkeydown='check4()'></center></td><td><center><input type='text' name='acc4' size='3' onkeydown='check4()'></center></td></tr>";
 	echo "<tr><td><b>Total:</b></td><td><center><input type='button' value='Calculate Total' onclick='calcTotal()'></center></td><td><center><input type='text' name='total' size='5' value='0'></center></td></tr>";
 	echo "</table>";
 	echo "<br>";

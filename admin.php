@@ -8,7 +8,9 @@ $username = "sql5827094";
 $password = "cwNi1Ae3GI";
 $dbname = "sql5827094";
 $conn = mysqli_connect($servername, $username, $password, $dbname);
-if (!$conn) { die("Connection failed: " . mysqli_connect_error()); }
+if (!$conn) {
+	die("Connection failed: " . mysqli_connect_error());
+}
 ?>
 <!DOCTYPE html>
 <html>

@@ -36,7 +36,9 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
 		$_SESSION['admin'] = true;
 		header("location:admin.php");
 	}
-	else { $wrong = 1; }
+	else {
+		$wrong = 1;
+	}
 }
 ?>
 <!DOCTYPE html>
